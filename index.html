@@ -11,13 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet"> 
+        rel="stylesheet">
     <style>
-        
         body {
             background-image: url('landingpageBG.png');
             /* Replace with your actual image path */
-            background-size:100% auto;
+            background-size: 100% auto;
             background-position: center 34%;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -49,38 +48,44 @@
             font-family: 'Inter', Courier, monospace;
             /* Initially hidden */
         }
-        .center{
-            
+
+        .center {
+
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
         .modal img {
-            width: 100px;
+            width: 200px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 0;
         }
-        .center p{
-            
-            -webkit-filter: drop-shadow(0 0 30px  black);
-            filter: drop-shadow(0 0 30px  black);
+
+        .center p {
+            padding: 0;
+            margin: 0;
+            margin-top: -15%;
+            -webkit-filter: drop-shadow(0 0 30px black);
+            filter: drop-shadow(0 0 30px black);
         }
     </style>
 </head>
 
-<body> 
+<body>
     <div id="fallback" class="modal">
         <div class="center">
 
             <img id="randomImage" src="" alt="Random Image">
-            <p><strong>Coming Soon</strong></p>
+            <p><strong id="dots">Coming Soon</strong></p>
         </div>
     </div>
 </body>
 <script>
 
     const randomImage = document.getElementById('randomImage');
+    const dots = document.getElementById('dots');
     const imageList = [
         "./loading/2s_Leche_Flan.png",
         "./loading/3s_Snabaw.png",
@@ -92,12 +97,33 @@
         "./loading/9s_Trycicle.png",
         "./loading/10s_Boat.png",
     ];
-    const randomIndex = Math.floor(Math.random() * imageList.length);
-    randomImage.src = imageList[randomIndex];
-    setInterval(()=>{
+    setInterval(() => {
         const randomIndex = Math.floor(Math.random() * imageList.length);
         randomImage.src = imageList[randomIndex];
-    },3000);
+    }, 3000);
+
+    function animateDots() {
+        let dotCount = 0;
+        dots.innerHTML = "Coming Soon"; // Reset before animation
+
+        const interval = setInterval(() => {
+            dotCount++;
+            dots.innerHTML = "Coming Soon" + ".".repeat(dotCount);
+
+            if (dotCount === 3) {
+                clearInterval(interval);
+                setTimeout(animateDots, 500); // Restart after a short delay
+            }
+        }, 500);
+    }
+
+    animateDots(); // Start immediately
+    const randomIndex = Math.floor(Math.random() * imageList.length);
+    randomImage.src = imageList[randomIndex];
+    setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * imageList.length);
+        randomImage.src = imageList[randomIndex];
+    }, 3000);
 </script>
 
 </html>
